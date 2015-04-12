@@ -1,17 +1,10 @@
-chrome.tabs.getSelected(null, function(tab) {
-    var url = tab.url;
-    var title = tab.title;
+chrome.tabs.query({ highlighted : true }, function(tab) {
+    var url = tab[0].url;
+    var title = tab[0].title;
 
-    url = 'http://twitthat.com/go'
-        + '?url=' + encodeURIComponent(url)
-        + '&title=' + encodeURI(title)
-        + '&is_extension=1';
+    url = 'https://twitter.com/intent/tweet?'
+        + 'text=' + encodeURI(title + '\n')
+        + '&url=' + encodeURIComponent(url)
 
-    var iframe = document.createElement("iframe");
-
-    iframe.setAttribute("src", url);
-    iframe.setAttribute("scrolling", "no");
-    iframe.setAttribute("style", "border:none; width:500px; height:350px");
-    iframe.setAttribute("frameborder", "0");
-    document.body.appendChild(iframe);
+    chrome.tabs.create({ url : url });
 });
