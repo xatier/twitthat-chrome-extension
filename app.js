@@ -1,10 +1,10 @@
-chrome.tabs.query({ highlighted : true }, function(tab) {
+chrome.tabs.query({ currentWindow : true, highlighted : true }, function(tab) {
     var url = tab[0].url;
     var title = tab[0].title;
 
     url = 'https://twitter.com/intent/tweet?'
-        + 'text=' + encodeURI(title + '\n')
-        + '&url=' + encodeURIComponent(url)
+        + 'url=' + encodeURIComponent(url)
+        + '&text=' + encodeURI(title + '\n')
 
     chrome.tabs.create({ url : url });
 });
